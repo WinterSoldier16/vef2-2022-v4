@@ -18,6 +18,7 @@ import {
   deleteRegistrationForUser,
   findRegistrationForUser,
   listEvent as listEventFromDb,
+  listRegistered,
   register,
 } from './events.js';
 import {
@@ -104,7 +105,10 @@ async function listEvent(req, res) {
     return res.status(404).json({});
   }
 
-  delete event.password;
+  // Viðbót fyrir v4!
+  const registrations = await listRegistered(id);
+  event.registrations = registrations;
+
   return res.status(200).json(event);
 }
 
