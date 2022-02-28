@@ -45,16 +45,16 @@ export async function deleteEvent(id) {
   return false;
 }
 
-export async function register({ name, comment, event } = {}) {
+export async function register({ userId, eventId, comment } = {}) {
   const q = `
     INSERT INTO registrations
-      (name, comment, event)
+      (comment, event, userId)
     VALUES
       ($1, $2, $3)
     RETURNING
-      id, name, comment, event;
+      id, comment, event, userId;
   `;
-  const values = [name, comment, event];
+  const values = [comment, eventId, userId];
   const result = await query(q, values);
 
   if (result && result.rowCount === 1) {
@@ -84,7 +84,7 @@ export async function listEvents() {
 export async function listEvent(id) {
   const q = `
     SELECT
-      id, name, slug, description, created, updated
+      id, name, slug, description, creatorId, created, updated
     FROM
       events
     WHERE id = $1
@@ -130,6 +130,36 @@ export async function listRegistered(event) {
 
   if (result) {
     return result.rows;
+  }
+
+  return null;
+}
+
+export async function findRegistrationForUser({ userId, eventId }) {
+  const q = `
+    SELECT
+      id
+    FROM
+      registrations
+    WHERE event = $1 AND userid = $2
+  `;
+
+  const result = await query(q, [eventId, userId]);
+
+  if (result) {
+    return result.rows;
+  }
+
+  return null;
+}
+
+export async function deleteRegistrationForUser({ userId, eventId }) {
+  const q = 'DELETE FROM registrations WHERE event = $1 AND userid = $2';
+
+  const result = await query(q, [eventId, userId]);
+
+  if (result && result.rowCount >= 1) {
+    return true;
   }
 
   return null;

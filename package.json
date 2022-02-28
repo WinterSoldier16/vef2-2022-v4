@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "dotenv -e .env -- nodemon ./src/app.js",
+    "dev:test": "dotenv -e .env.test -- nodemon ./src/app.js",
     "start": "dotenv -e .env node ./src/app.js",
     "setup": "dotenv -e .env node ./src/setup.js",
     "lint": "eslint ./src/**/*.js",

@@ -4,13 +4,13 @@ import { end, query } from './lib/db.js';
 const SCHEMA_FILE = './sql/schema.sql';
 const DROP_SCHEMA_FILE = './sql/drop.sql';
 
-async function createSchema(schemaFile = SCHEMA_FILE) {
+export async function createSchema(schemaFile = SCHEMA_FILE) {
   const data = await readFile(schemaFile);
 
   return query(data.toString('utf-8'));
 }
 
-async function dropSchema(dropFile = DROP_SCHEMA_FILE) {
+export async function dropSchema(dropFile = DROP_SCHEMA_FILE) {
   const data = await readFile(dropFile);
 
   return query(data.toString('utf-8'));

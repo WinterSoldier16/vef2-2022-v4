@@ -47,8 +47,6 @@ export async function findByUsername(username) {
     return result.rows[0];
   }
 
-  console.error('unable to query user by username', username);
-
   return false;
 }
 

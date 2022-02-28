@@ -1,4 +1,5 @@
 import express from 'express';
+import { body } from 'express-validator';
 import xss from 'xss';
 import { requireAuthentication } from '../auth/passport.js';
 import { findById } from '../auth/users.js';
@@ -14,7 +15,10 @@ import {
 import {
   createEvent as createEventFromDb,
   deleteEvent as deleteEventFromDb,
+  deleteRegistrationForUser,
+  findRegistrationForUser,
   listEvent as listEventFromDb,
+  register,
 } from './events.js';
 import {
   registrationValidationMiddleware,
@@ -139,7 +143,7 @@ async function patchEvent(req, res) {
     return res.status(404).json({});
   }
 
-  if (event.creatorId !== userId && !user.admin) {
+  if (event.creatorid !== userId && !user.admin) {
     return res.status(401).json({ error: 'not creator or admin' });
   }
 
@@ -175,7 +179,7 @@ async function deleteEvent(req, res) {
     return res.status(404).json({});
   }
 
-  if (event.creatorId !== userId && !user.admin) {
+  if (event.creatorid !== userId && !user.admin) {
     return res.status(401).json({ error: 'not creator or admin' });
   }
 
@@ -183,6 +187,49 @@ async function deleteEvent(req, res) {
 
   if (!result) {
     return res.status(500).json({ error: 'unable to delete' });
+  }
+
+  return res.status(200).json({});
+}
+
+async function registerEvent(req, res) {
+  const { comment } = req.body;
+  const { id: eventId } = req.params;
+  const { id: userId } = req.user;
+
+  const event = await listEventFromDb(eventId);
+  const user = await findById(userId);
+
+  if (!event || !user) {
+    return res.status(404).json({});
+  }
+
+  const result = await register({ userId, eventId, comment });
+
+  if (!result) {
+    return res.status(500).json({ error: 'unable to register' });
+  }
+
+  return res.status(201).json(result);
+}
+
+async function deleteEventRegistration(req, res) {
+  const { id: eventId } = req.params;
+  const { id: userId } = req.user;
+
+  const registration = await findRegistrationForUser({
+    userId,
+    eventId: Number.parseInt(eventId, 10),
+  });
+
+  if (!registration || registration.length === 0) {
+    return res.status(404).json({});
+  }
+
+  const result = await deleteRegistrationForUser({ userId, eventId });
+
+  if (!result) {
+    return res.status(500).json({ error: 'unable to register' });
   }
 
   return res.status(200).json({});
@@ -221,6 +268,20 @@ router.patch(
 
 router.delete('/events/:id', requireAuthentication, catchErrors(deleteEvent));
 
-router.post('/events/:id/register', (req, res) => {});
+router.post(
+  '/events/:id/register',
+  requireAuthentication,
+  body('comment')
+    .isLength({ max: 400 })
+    .withMessage('comment max 400 characters'),
+  body('comment').customSanitizer((v) => xss(v)),
+  validationCheck,
+  sanitizationMiddleware('comment'),
+  catchErrors(registerEvent)
+);
 
-router.delete('/events/:id/register', (req, res) => {});
+router.delete(
+  '/events/:id/register',
+  requireAuthentication,
+  catchErrors(deleteEventRegistration)
+);
