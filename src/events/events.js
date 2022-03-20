@@ -120,7 +120,10 @@ export async function listEventByName(name) {
 export async function listRegistered(event) {
   const q = `
     SELECT
-      users.name as name, registrations.comment as comment
+      users.id as id,
+      users.username as username,
+      users.name as name,
+      registrations.comment as comment
     FROM
       registrations
     LEFT JOIN
