@@ -1,41 +1,40 @@
 {
-  "name": "vef2-2022-v3-synilausn",
-  "version": "1.0.0",
-  "description": "Sýnilausn á [verkefni 3](https://github.com/vefforritun/vef2-2022-v3).",
-  "main": "index.js",
-  "scripts": {
-    "dev": "dotenv -e .env -- nodemon ./src/app.js",
-    "dev:test": "dotenv -e .env.test -- nodemon ./src/app.js",
-    "start": "dotenv -e .env node ./src/app.js",
-    "setup": "dotenv -e .env node ./src/setup.js",
-    "lint": "eslint ./src/**/*.js",
-    "test:unit": "NODE_ENV=test NODE_OPTIONS='--experimental-vm-modules' dotenv -e .env.test -- jest ./*.test.js --testPathIgnorePatterns ./src/test/integration/",
-    "test:integration": "NODE_ENV=test NODE_OPTIONS='--experimental-vm-modules' dotenv -e .env.test -- jest ./src/test/integration/*.test.js",
-    "test": "concurrently npm:test:*"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "name": "vef2-2022-v4",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "bcrypt": "^5.0.1",
-    "dotenv": "^16.0.0",
-    "dotenv-cli": "^5.0.0",
-    "express": "^4.17.3",
-    "express-validator": "^6.14.0",
-    "jsonwebtoken": "^8.5.1",
-    "passport": "^0.5.2",
-    "passport-jwt": "^4.0.0",
-    "pg": "^8.7.3",
-    "xss": "^1.0.10"
+    "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.2.2",
+    "react-scripts": "5.0.0",
+    "sass": "^1.49.9",
+    "web-vitals": "^2.1.4"
   },
-  "devDependencies": {
-    "concurrently": "^7.0.0",
-    "eslint": "^8.9.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^8.4.0",
-    "eslint-plugin-import": "^2.25.4",
-    "jest": "^27.5.1",
-    "nodemon": "^2.0.15",
-    "prettier": "^2.5.1"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
