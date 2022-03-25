@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+# Vefforritun 2, 2022. Verkefni 4: Viðburðakerfis framendi
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Kynning á verkefni í tíma](https://youtu.be/Sc0vW-5zylM).
 
-## Available Scripts
+Verkefnið er endurgerð á [verkefni 2](https://github.com/vefforritun/vef2-2022-v2/) með React og nýtir vefþjónustur úr [verkefni 3](https://github.com/vefforritun/vef2-2022-v3/).
 
-In the project directory, you can run:
+Búa skal til React framenda ofan á vefþjónustur fyrir viðburðakerfið.
 
-### `npm start`
+Eftirfarandi eru markmið verkefnisins:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* Kynnast React og hvernig við notum það til að útbúa framenda og viðmót
+* Uppsetning á react components og skiptingu á mismunandi viðmótseiningum
+* Props og state
+* Prófanir á react component
+* React router til að sjá um routing
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Viðmót
 
-### `npm test`
+Notast skal við sama viðmót og í verkefni 2, eða bæta við og breyta eins og ykkur listir.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Leyfilegt er að nota CSS og það sem kemur fyrir í sýnilausn að verkefni 2.
 
-### `npm run build`
+## Vefþjónustur og gögn
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Viðburði skal sækja úr vefþjónustu, annað hvort gefinni [vefþjónustu fyrir sýnilausn á verkefni 3](https://vef2-20222-v3-synilausn.herokuapp.com/), eða ykkar eigin vefþjónustu úr verkefni 3. Athugið að krafa er um að birta skráningar per viðburð sem ekki var krafa í verkefni 3, þannig að ef þið notið ykkar eigin þarf að bæta þeirri virkni við.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Á forsíðu eru viðburðir frá `/events` birtir, fyrir hvern viðburð eru gögn sótt á `/events/:id`. Ekki þarf að útfæra síðuflettingu (e. paging) í viðmóti.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Annar texti sem ekki er til staðar í vefþjónustu skal setja beint inn í verkefnið.
 
-### `npm run eject`
+## Virkni
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Farið er yfir virkni í [myndbandi](v4.mp4).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Setja skal upp þrjár síður:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* Forsíðu sem birtir lista af viðburðum frá vefþjónustu
+* Stakan viðburð með upplýsingum um viðburð, skráningar og möguleika á að skrá sig, sjá að neðan
+* Innskráningarsíðu sem birtir aðeins form
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Í `App` component skal halda utan um síður og stöðu á innskráningu.
 
-## Learn More
+Nota skal [react router, útgáfu 6](https://reactrouter.com/docs/en/v6) til að setja upp routing og nota það til að viðhalda stöðu á milli síðna. Athugið að dæmi í námsefni nota útgáfu 5 og eru einhverjar breytingar á milli útgáfna.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Búa skal til a.m.k. fimm componenta sem halda utan um viðeigandi stöðu og taka við gögnum gegnum props:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* `Event` component sem birtir upplýsingar um stakan viðburð, getur verið aðskilinn frá síðunni (sem þá sækir gögnin sem þessi component birtir gegnum props)
+* `Events` component sem birtir upplýsingar um lista af viðburðum, getur verið aðskilinn frá síðunni (sem þá sækir gögnin sem þessi component birtir gegnum props)
+* `Layout` component sem heldur utan um header, efni og footer á síðu
+* `Login` component sem heldur utan um innskráningar link, nýskráningar takka. Birtir að notandi sé innskráður og möguleika til að skrá sig út
+* Form componenta, t.d. `Input`, `Form` og `Button`
 
-### Code Splitting
+## Gerviinnskráning
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Ekki þarf að útfæra innskráningu á móti vefþjónustu á þessu stigi, en útfæra skal gerviinnskráningu.
 
-### Analyzing the Bundle Size
+Í `App` er haldið utan um stöðu á innskráningu og hún send niður í viðeigandi componenta. Í `Login` component er möguleiki á að nýskrá sig, en við það er stöðu breytt í að notandi sé innskráður. Þá er möguleiki á að breyta stöðu aftur í óinnskráða með því að nota `útskrá` takka.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Ef notandi er innskráður birtist möguleiki á að skrá sig með athugasemd á viðburða síðu. Ef ýtt er á þann takka heldur sá viðburður utan um að notandi sé skráður *aðeins* á meðan notandi er á þeirri síðu. Ekkert þarf að gera við skráða athugasemd.
 
-### Making a Progressive Web App
+## Tæki, tól og test
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Setja skal upp verkefni með `create react app` (CRA).
 
-### Advanced Configuration
+Setja skal upp `eslint` gegnum CRA. Engar villur skulu vera til staðar.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+`jest` kemur uppsett með CRA. Skrifa skal test fyrir a.m.k. tvo componenta. Nota skal [Testing Library](https://testing-library.com/docs/) til að útbúa test.
 
-### Deployment
+Setja skal upp vefinn á Netlify eða Heroku tengt við GitHub, tengjast skal vefþjónustu, annað hvort gefinni [vefþjónustu fyrir sýnilausn á verkefni 3](https://vef2-20222-v3-synilausn.herokuapp.com/), eða ykkar eigin vefþjónustu úr verkefni 3, gefið að búið sé að bæta við hana að birta skráningar.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Mat
 
-### `npm run build` fails to minify
+* 20% Verkefni sett upp með CRA og síður skilgreindar með react router
+* 20% Viðburðalisti sóttur gegnum vefþjónustu og birtur
+* 20% Stakur viðburður sóttur gegnum vefþjónustu og birtur með öllum gögnum
+* 20% „Gerviinnskráning“ útfærð og stöðu hennar viðhaldið gegnum forritið
+* 20% Tæki, tól og test, verkefni sett upp á Netlify eða Heroku
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Sett fyrir
+
+Verkefni sett fyrir í fyrirlestri miðvikudaginn 2. mars 2022.
+
+## Skil
+
+Skila skal í Canvas í seinasta lagi fyrir lok dags föstudaginn 18. mars 2022.
+
+Skil skulu innihalda:
+
+* Slóð á verkefni keyrandi á Netlify eða Heroku
+* Slóð á GitHub repo fyrir verkefni. Dæmatímakennurum skal hafa verið boðið í repo. Notendanöfn þeirra eru:
+  * `MarzukIngi`
+  * `WhackingCheese`
+
+---
+
+> Útgáfa 0.1
+| Útgáfa | Breyting                                     |
+|--------|----------------------------------------------|
+| 0.1    | Fyrsta útgáfa                                |
