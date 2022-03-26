@@ -1,5 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Events from './pages/Events';
+import NotFound from './pages/NotFound';
+import Login from './pages/Login';
+import SingleEvent from './pages/SingleEvent';
+import Home from './pages/Home';
 
 function App() {
   return (

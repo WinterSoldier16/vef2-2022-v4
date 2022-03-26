@@ -1,8 +1,8 @@
 import React from "react";
-import Events from "./Events";
+import EventList from "../components/events/EventList.js";
 
 function Home() {
-    return <Events />
+    return <EventList />
 }
 
 export default Home;

@@ -1,0 +1,46 @@
+.event {
+    padding-top: 1rem;
+  
+    border: 1px solid #333;
+    border-radius: 5px;
+  
+    background-color: #f5f3e3;
+  
+    overflow: hidden;
+  
+    &__title {
+      margin: 0 0 1rem 0;
+      padding: 0 1rem;
+    }
+  
+    &__list {
+      margin: 0 0 1rem 0;
+      padding: 0 1rem;
+      list-style: none;
+    }
+  
+    &__item a {
+      display: block;
+      color: #222;
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    &__links {
+      display: flex;
+      justify-content: space-between;
+  
+      padding: 1rem;
+    }
+  
+    &__link {
+      background-color: transparent;
+      border: 0;
+      font-family: inherit;
+      font-size: inherit;
+      text-decoration: none;
+  
+      font-weight: bold;
+      color: #222
+    }
+  }

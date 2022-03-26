@@ -6,9 +6,9 @@ import s from './EventList.module.scss';
 
 const apiUrl = (`https://vef2-20222-v3-synilausn.herokuapp.com/events/`)
 
-export function EventList() {
+function EventList() {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = usseState(null);
+  const [error, setError] = useState(null);
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -54,8 +54,21 @@ export function EventList() {
   return (
     <section className={s.eventList}>
     <div className={s.eventList__list}>
-    
+      {events.map((items) => {
+        return (
+          <div key={items.id} className={s.eventList__item}>
+            <Event
+              id={items.id}
+              title={items.name}
+              slug={items.slug}
+              description={items.description}
+            />
+          </div>
+        )
+      })}
     </div>
     </section>
   );
 }
+
+export default EventList;
